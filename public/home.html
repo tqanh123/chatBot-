@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/bootstrap.css">
+    <link rel="stylesheet" href="./icon.css">
+    <title>Medical Chat bot</title>
+</head>
+<body>
+    <div class="position-relative d-flex h-100 w-100 overflow-hidden">
+        <!-- Sidebar -->
+        <div class="flex-column flex d-flex position-relative w-100 h-100 flex-shrink-0" style=" width: 260px !important; overflow-x: hidden;">
+            <div class="h-100" style="width: 260px;">
+                <div id="sidebar">
+                    <div class="h-100 px-3 d-flex flex-column align-items-center align-items-sm-start pt-3 min-vh-100">            
+                        <div class="d-flex nav-item">
+                            Medical Chat bot 
+                            <i class="fa-solid fa-bars"></i>
+                        </div>
+                        <ul class="d-flex frame nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
+                            <li class="chatBox nav-item">chat box 1</li>
+                            
+                            <li class="chatBox nav-item">chat box 1</li>
+                            <li class="chatBox nav-item">chat box 1</li>
+                        </ul>
+                        <div class="d-flex align-items-center align-items-sm-start w-100 my-3 justify-content-center">
+                            <button class="btn btn-primary">report issue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-column overflow-hidden flex-1 position-relative d-flex h-100 mw-100">
+            <main class="position-relative flex-1 h-100 w-100 overflow-auto">
+                <div id="body" class="w-100">
+                    <div class="flex-1 d-flex overflow-hidden flex-column">
+                      <div class="h-100 position-relative" style="overflow-y: auto;">
+                        <!-- Navbar -->
+                        <div id="navbar" class="justify-content-between">
+                            <h1 class="title">Medical Chat bot</h1>
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div id="chatting" class="h-100">        
+                            <div class="ib_bot">
+                                <p>Hi, I am a medical chat bot. I can help you with your medical queries. Please type your query below.</p>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="input-message w-100">
+                        <input type="text" id="userInput" placeholder="type message here" onkeyup="sendQuery(event)">
+                        <button id="send">Send</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script>
+        const chatting = document.getElementById('chatting');
+        const input = document.getElementById('userInput');
+        const sendButton = document.getElementById('send');
+        let step = 1;
+        let userInfo = {};
+    
+        function addMessage(content, sender) {
+          const div = document.createElement('div');
+          if (sender === 'User') {
+            div.innerHTML = `<div class="ib_user"><div><p>${content}</p></div></div>`;
+          } else {
+            div.innerHTML = `<div class="ib_bot"><p>${content}</p></div>`;
+          }
+          chatting.appendChild(div);
+        }
+    
+        function sendQuery(event) {
+          if (event.key === 'Enter' || event.type === 'click') {
+            const userMessage = input.value.trim();
+            if (userMessage) {
+              addMessage(userMessage, 'User');
+              input.value = '';
+    
+              // Save user response
+              switch (step) {
+                case 2:
+                  userInfo.fullName = userMessage;
+                  break;
+                case 3:
+                  userInfo.age = userMessage;
+                  break;
+                case 4:
+                  userInfo.gender = userMessage;
+                  break;
+                case 5:
+                  userInfo.contact = userMessage;
+                  break;
+                case 6:
+                  userInfo.email = userMessage;
+                  break;
+                case 6:
+                  step = 33;
+                  saveUserInfoToDatabase(userInfo);
+                  // userInfo.query = userMessage;
+                  break;
+                // case 7:
+                //   userInfo.symptoms = userMessage;
+                //   break;
+                // case 8:
+                //   userInfo.medication = userMessage;
+                //   break;
+                // case 9:
+                //   userInfo.allergies = userMessage;
+                //   break;
+                // case 10:
+                //   userInfo.preferredDoctor = userMessage;
+                //   break;
+                // case 11:
+                //   userInfo.preferredHospital = userMessage;
+                //   break;
+                // case 12:
+                //   userInfo.preferredTime = userMessage;
+                //   break;
+                // case 13:
+                //   userInfo.preferredDate = userMessage;
+                //   break;
+                // case 14:
+                //   userInfo.preferredMode = userMessage;
+                //   break;
+                //   case 15:
+                //   userInfo.insuranceProvider = userMessage;
+                //   break;
+                // case 16:
+                //   userInfo.policyNumber = userMessage;
+                //   break;
+                // case 17:
+                //   userInfo.emergencyContact = userMessage;
+                //   break;
+                // case 18:
+                //   userInfo.emergencyContactNumber = userMessage;
+                //   break;
+                // case 19:
+                //   userInfo.recentTravelHistory = userMessage;
+                //   break;
+                // case 20:
+                //   userInfo.vaccinationStatus = userMessage;
+                //   break;
+                // case 21:
+                //   userInfo.chronicConditions = userMessage;
+                //   break;
+                // case 22:
+                //   userInfo.familyMedicalHistory = userMessage;
+                //   break;
+                // case 23:
+                //   userInfo.currentMedications = userMessage;
+                //   break;
+                // case 24:
+                //   userInfo.previousSurgeries = userMessage;
+                //   break;
+                // case 25:
+                //   userInfo.smokingStatus = userMessage;
+                //   break;
+                // case 26:
+                //   userInfo.alcoholConsumption = userMessage;
+                //   break;
+                // case 27:
+                //   userInfo.exerciseFrequency = userMessage;
+                //   break;
+                // case 28:
+                //   userInfo.dietaryPreferences = userMessage;
+                //   break;
+                // case 29:
+                //   userInfo.sleepPatterns = userMessage;
+                //   break;
+                // case 30:
+                //   userInfo.stressLevels = userMessage;
+                //   break;
+                // case 31:
+                //   userInfo.mentalHealthStatus = userMessage;
+                //   break;
+                // case 32:
+                //   saveUserInfoToDatabase(userInfo); // Save userInfo to the database
+                //   break;
+              }
+    
+              // Fetch response from the server
+              const res = fetch(`http://localhost:3000/chatbot?step=${step}`)
+                .then(response => response.json())
+                .then(data => {
+                  addMessage(data.response, 'Bot');
+                  step++;
+                });
+              
+              console.log(res);
+            }
+          }
+        }
+        
+        function saveUserInfoToDatabase(userInfo) {
+          // Your database saving logic here
+          fetch('http://localhost:3000/saveUserInfo', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userInfo)
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Success:', data);
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+        }
+
+        sendButton.addEventListener('click', sendQuery);
+    </script>
+</body>
+</html>
+
