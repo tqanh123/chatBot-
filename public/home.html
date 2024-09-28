@@ -15,9 +15,11 @@
             <div class="h-100" style="width: 260px;">
                 <div id="sidebar">
                     <div class="h-100 px-3 d-flex flex-column align-items-center align-items-sm-start pt-3 min-vh-100">            
-                        <div class="d-flex nav-item">
-                            Medical Chat bot 
-                            <i class="fa-solid fa-bars"></i>
+                        <div class="d-flex nav-item justify-content-between w-100">
+                            <div>QAI bot</div> 
+                            <button>
+                              <i class="fa-solid fa-bars"></i>
+                            </button>
                         </div>
                         <ul class="d-flex frame nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
                             <li class="chatBox nav-item">chat box 1</li>
@@ -32,20 +34,30 @@
                 </div>
             </div>
         </div>
-        <div class="flex-column overflow-hidden flex-1 position-relative d-flex h-100 mw-100">
+        <div class="flex-column overflow-hidden flex-1 position-relative d-flex h-100 mw-100" style="height: 100vh">
             <main class="position-relative flex-1 h-100 w-100 overflow-auto">
-                <div id="body" class="w-100">
-                    <div class="flex-1 d-flex overflow-hidden flex-column">
-                      <div class="h-100 position-relative" style="overflow-y: auto;">
-                        <!-- Navbar -->
-                        <div id="navbar" class="justify-content-between">
-                            <h1 class="title">Medical Chat bot</h1>
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                        <div id="chatting" class="h-100">        
-                            <div class="ib_bot">
-                                <p>Hi, I am a medical chat bot. I can help you with your medical queries. Please type your query below.</p>
+                <div role="presentation" tabindex="0" id="body" class="w-100">
+                    <div class="flex-1 overflow-hidden">
+                      <div class="h-100">
+                        <div class="position-relative h-100">
+                          <div class="h-100 w-100" style="overflow-y: auto;">
+                            <!-- Navbar -->
+                            <div id="navbar" class="justify-content-between">
+                                <h1 class="title">Medical Chat bot</h1>
+                                <div style="line-height: 50px;">
+                                  <button class="login">
+                                    <i class="fa-solid fa-user"></i>
+                                    login
+                                  </button>
+                                </div>
                             </div>
+                            <div id="chatting">        
+                                <div class="ib_bot">
+                                    <p>Xin chào bạn, Tôi là chat bot hổ trọ việc chuẩn đoán y tế cho bạn.</p>
+                                    <p>Để hổ trợ cho việc chuẩn đoán bạn có thể trả lời các câu hỏi của tôi được chứ!</p>
+                                </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -95,93 +107,89 @@
                   break;
                 case 5:
                   userInfo.contact = userMessage;
+                  // step = 34;
+                  // saveUserInfoToDatabase(userInfo);
                   break;
                 case 6:
-                  userInfo.email = userMessage;
+                  userInfo.symptoms = userMessage;
                   break;
-                case 6:
-                  step = 33;
-                  saveUserInfoToDatabase(userInfo);
-                  // userInfo.query = userMessage;
+                case 7:
+                  userInfo.firstTime = userMessage;
                   break;
-                // case 7:
-                //   userInfo.symptoms = userMessage;
-                //   break;
-                // case 8:
-                //   userInfo.medication = userMessage;
-                //   break;
-                // case 9:
-                //   userInfo.allergies = userMessage;
-                //   break;
-                // case 10:
-                //   userInfo.preferredDoctor = userMessage;
-                //   break;
-                // case 11:
-                //   userInfo.preferredHospital = userMessage;
-                //   break;
-                // case 12:
-                //   userInfo.preferredTime = userMessage;
-                //   break;
-                // case 13:
-                //   userInfo.preferredDate = userMessage;
-                //   break;
-                // case 14:
-                //   userInfo.preferredMode = userMessage;
-                //   break;
-                //   case 15:
-                //   userInfo.insuranceProvider = userMessage;
-                //   break;
-                // case 16:
-                //   userInfo.policyNumber = userMessage;
-                //   break;
-                // case 17:
-                //   userInfo.emergencyContact = userMessage;
-                //   break;
-                // case 18:
-                //   userInfo.emergencyContactNumber = userMessage;
-                //   break;
-                // case 19:
-                //   userInfo.recentTravelHistory = userMessage;
-                //   break;
-                // case 20:
-                //   userInfo.vaccinationStatus = userMessage;
-                //   break;
-                // case 21:
-                //   userInfo.chronicConditions = userMessage;
-                //   break;
-                // case 22:
-                //   userInfo.familyMedicalHistory = userMessage;
-                //   break;
-                // case 23:
-                //   userInfo.currentMedications = userMessage;
-                //   break;
-                // case 24:
-                //   userInfo.previousSurgeries = userMessage;
-                //   break;
-                // case 25:
-                //   userInfo.smokingStatus = userMessage;
-                //   break;
-                // case 26:
-                //   userInfo.alcoholConsumption = userMessage;
-                //   break;
-                // case 27:
-                //   userInfo.exerciseFrequency = userMessage;
-                //   break;
-                // case 28:
-                //   userInfo.dietaryPreferences = userMessage;
-                //   break;
-                // case 29:
-                //   userInfo.sleepPatterns = userMessage;
-                //   break;
-                // case 30:
-                //   userInfo.stressLevels = userMessage;
-                //   break;
-                // case 31:
-                //   userInfo.mentalHealthStatus = userMessage;
-                //   break;
-                // case 32:
-                //   saveUserInfoToDatabase(userInfo); // Save userInfo to the database
-                //   break;
+                case 8:
+                  userInfo.howLong = userMessage;
+                  break;
+                case 9:
+                  userInfo.symptomContent = userMessage;
+                  break;
+                case 10:
+                  userInfo.hurtPosition = userMessage;
+                  break;
+                case 11:
+                  userInfo.isExtend = userMessage;
+                  break;
+                case 12:
+                  userInfo.thingAffect = userMessage;
+                  break;
+                case 13:
+                  userInfo.rateHurt = userMessage;
+                  break;
+                case 14:
+                  userInfo.Frequency = userMessage;
+                  break;
+                  case 15:
+                  userInfo.chronic = userMessage;
+                  break;
+                case 16:
+                  userInfo.surgery = userMessage;
+                  break;
+                case 17:
+                  userInfo.isTreatmenting = userMessage;
+                  break;
+                case 18:
+                  userInfo.diagnosisYet = userMessage;
+                  break;
+                case 19:
+                  userInfo.medicalYet = userMessage;
+                  break;
+                case 20:
+                  userInfo.medicineAmount = userMessage;
+                  break;
+                case 21:
+                  userInfo.sideEffect = userMessage;
+                  break;
+                case 22:
+                  userInfo.medicalAllergy = userMessage;
+                  break;
+                case 23:
+                  userInfo.anyPatient = userMessage;
+                  break;
+                case 24:
+                  userInfo.geneticDisease = userMessage;
+                  break;
+                case 25:
+                  userInfo.isSmoke = userMessage;
+                  break;
+                case 26:
+                  userInfo.weight = userMessage;
+                  break;
+                case 27:
+                  userInfo.bodyIssues = userMessage;
+                  break;
+                case 28:
+                  userInfo.habitChanges = userMessage;
+                  break;
+                case 29:
+                  userInfo.allergy = userMessage;
+                  break;
+                case 30:
+                  userInfo.addictiveReact = userMessage;
+                  break;
+                case 31:
+                  userInfo.mentalHealthStatus = userMessage;
+                  step = 34;
+                  saveUserInfoToDatabase(userInfo); // Save userInfo to the database
+                  break;
               }
     
               // Fetch response from the server

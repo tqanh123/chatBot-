@@ -95,12 +95,15 @@ app.get('/chatbot', async (req, res) => {
   try {
     await client.connect();
     const collection = db.collection('questions');
+    if (step <= 33) {
     const question = await collection.findOne({ num: parseInt(step) });
     console.log(question);
-    if (question) {
       response = question.content;
-    } else {
+    } else if (step === '34') {
       response = "Cảm ơn bạn đã cung cấp thông tin! Xin hãy chờ trong giây lát...";
+    }
+    else {
+      response = "xin chờ trong giây lát...";
     }
     res.json({ response });
   } catch (err) {
@@ -124,9 +127,6 @@ app.post('/saveUserInfo', async (req, res) => {
   } catch (err) {
     console.error('Error saving user info:', err);
     res.status(500).json({ message: 'An error occurred while saving user info' });
-  }
-  finally {
-    await client.close();
   }
 });
 
