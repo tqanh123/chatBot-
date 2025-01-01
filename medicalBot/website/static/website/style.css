@@ -1,0 +1,174 @@
+body{
+    /* background-color: #f0f0f0; */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #464141;
+}
+
+#sidebar{
+    background-color: #333;
+    color: #fff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.chatBox{
+    padding: 10px 0px;
+}
+
+#navbar{
+    background-color: #464141;
+    color: #fff;
+    width: 100%;
+    height: 50px;
+    position: sticky;
+    top: 0;
+    display: flex;
+    padding: 0 20px;
+    z-index: 10;
+    transition: all 0.5s;
+}
+
+.login {
+    background-color: #464141;
+    color: #fff;
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    border-radius: 10px
+}
+
+.title{
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+}
+
+#body{
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#body>div{
+    scrollbar-color: #333 transparent;
+}
+
+#chatting {
+    width:80%;
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 30px; 
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;;
+    font-size: 20px;
+}
+
+.input-message {
+    position: relative;
+    display: flex;
+    width: 100%;
+    padding: 10px; /* Optional: for some padding */
+
+}
+
+.ib_user{
+    width: 100%;
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+    padding: 20px 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.ib_user div{
+    position: relative;
+    max-width: 70%;
+    border-radius: 1.5rem;
+    background-color: #5e5e5e;
+    padding: 10px 20px;
+    line-height: 16px;
+}
+.ib_user div p {
+    line-height: 16px;
+    margin-bottom: 0;
+    white-space: pre-wrap;
+}
+
+.ib_bot{
+    padding: 10px 20px;
+    width: 100%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+.ib_bot p{
+    margin-bottom: 0;
+}
+
+#userInput {
+    position: relative;
+    border-radius: 26px;
+    height:50px;
+    background-color: #5e5e5e;
+    width: 80%;
+    padding: 5px 50px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+}
+
+#send, #link {
+    position: absolute;
+    top: 13px;
+    background-color: #5e5e5e;
+    border: 0px;
+    border-radius: 26px;
+    height: 44px;
+}
+
+#send{
+    right: 11%;
+}
+
+#link{
+    left: 11.5%;
+}
+
+.flex-1{
+    flex: 1 1 0%;
+}
+
+.start_area {
+    width: 60%;
+    margin: 20% auto;
+    border: 3px black solid;
+    padding: 20px;
+    border-radius: 40px;
+    background: gray;
+    position: relative;
+}
+
+.start_area div {
+    margin-bottom: 50px;
+}
+
+#start {
+    border-radius: 30px;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, 50%);
+}

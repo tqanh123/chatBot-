@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block chatting-content %}
+<script>
+    let num = 0;
+    let tagNum = 0;
+    let questions = [];
+    let questionnaire = [];
+    let conversationId = 0;
+    let chat = true;
+
+</script>
+<div class="flex-column overflow-hidden flex-1 position-relative d-flex h-100 mw-100" style="height: 100vh">
+    <main class="position-relative flex-1 h-100 w-100 overflow-auto">
+        <div role="presentation" tabindex="0" id="body" class="w-100">
+            <div class="flex-1 overflow-hidden">
+              <div class="h-100">
+                <div class="position-relative h-100">
+                  <div class="h-100 w-100" style="overflow-y: auto;">
+                    <!-- Navbar -->
+                    <div id="navbar" class="justify-content-between">
+                        <h1 class="title">Medical Chat bot</h1>
+                        <div style="line-height: 50px;">
+                          <button class="login">
+                            <i class="fa-solid fa-user"></i>
+                            login
+                          </button>
+                        </div>
+                    </div>
+
+                    <!-- Chatting -->
+                    <div id="chatting">        
+                    {% if conversation %}
+                        {% if contents%}
+                            {% for content in contents %}
+                                {% if content.actor == 'Bot' %}
+                                    <script>
+                                        questionnaire.push('{{ content.number }}');
+                                    </script>
+                                    <div class="ib_bot">
+                                        <p>{{ content.content }}</p>
+                                    </div>
+                                {% else %}
+                                    <div class="ib_user">
+                                        <div><p>{{ content.content }}</p></div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                            <script>
+                                conversationId = '{{ conversation.id }}';
+                                num = parseInt('{{contents|length}}', 10);
+                                num = Math.floor(num/2);
+
+                                if ('{{last.actor}}' == 'User') {
+                                chat = true;
+                                num++;
+                                } else {
+                                    chat = false;
+                                }
+                                console.log('oke contents', num);
+                            
+                            </script>
+                        {% else %}
+                            <script>
+                                conversationId = '{{ conversation.id }}';
+                                num = 0;
+                                chat = true;
+                                console.log('not contents', num);
+                            </script>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if not conversation %} 
+                    <div class="start_area">
+                        <div>
+                            <p>Xin chào bạn, Tôi là chat bot hổ trợ cho bạn về việc chuẩn đoán y tế.</p>
+                            <p>Để hổ trợ cho việc chuẩn đoán bạn có thể trả lời các câu hỏi của tôi được chứ!</p>
+                        </div>
+                        <button id="start">bắt đầu</button>
+                    </div> 
+                    {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="input-message w-100">
+                <input type="text" id="userInput" placeholder="type message here" onkeyup="sendQuery(event)">
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" id="fileInput" style="display: none;">
+
+                </form>
+                <div class="fileUpload">
+                    {% for file in files %}
+                        <div class="file">
+                            <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                            <button class="delete" onclick="deleteFile(event, '{{ file.id }}')">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button id="link"><i class="fa-solid fa-xl fa-paperclip"></i></button>
+                <button id="send"><i class="fa-solid fa-2xl fa-circle-arrow-right"></i></button>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

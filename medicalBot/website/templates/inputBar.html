@@ -1,0 +1,20 @@
+{% load static %}
+    <div class="input-message w-100">
+        <input type="text" id="userInput" placeholder="type message here" onkeyup="sendQuery(event)">
+        <form action="" method="post" enctype="multipart/form-data">
+            <input type="file" id="fileInput" style="display: none;">
+
+        </form>
+        <div class="fileUpload">
+            {% for file in files %}
+                <div class="file">
+                    <a href="{{ file.file.url }}" target="_blank">{{ file.file.name }}</a>
+                    <button class="delete" onclick="deleteFile(event, '{{ file.id }}')">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+        <button id="link"><i class="fa-solid fa-xl fa-paperclip"></i></button>
+        <button id="send"><i class="fa-solid fa-2xl fa-circle-arrow-right"></i></button>
+    </div>
