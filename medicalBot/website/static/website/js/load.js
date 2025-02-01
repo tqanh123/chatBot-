@@ -43,7 +43,7 @@ async function startConversation() {
     } else if (num === 14) {
         tagNum = 3;
     }
-    if (chat) {
+    if (chat && num != 0) {
         Question(num);
     }
 }

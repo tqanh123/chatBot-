@@ -1,22 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'website/style.css' %}">
-    <link rel="stylesheet" href="{% static 'website/bootstrap.css' %}">
-    <!-- <link rel="stylesheet" href="{% static 'website/icon.css' %}"> -->
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js" crossorigin="anonymous"></script>
-    
-    <title>Medical Chat bot</title>
-    <meta name="csrf-token" content="{{ csrf_token }}">
-</head>
+{% load static %}
+{% include 'head.html' %}
 <body>
     <div class="position-relative d-flex h-100 w-100 overflow-hidden">
         <!-- Sidebar -->
-        <div class="flex-column flex d-flex position-relative w-100 h-100 flex-shrink-0" style=" width: 300px !important; overflow-x: hidden;">
+        <!-- <div class="flex-column flex d-flex position-relative w-100 h-100 flex-shrink-0" style=" width: 300px !important; overflow-x: hidden;">
             <div class="h-100" style="width: 300px;">
                 <div id="sidebar">
                     <div class="h-100 px-3 d-flex flex-column align-items-center align-items-sm-start pt-3 min-vh-100">            
@@ -41,12 +28,17 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+        {% include 'sidebar.html' %}
         <!-- Main content -->
         {% block chatting-content %}
+        {% endblock %}
+
+        {% block login%}
         {% endblock %}
     </div>
     <script src="{% static 'website/js/script.js' %}"></script>
     <script src="{% static 'website/js/load.js' %}"></script>
+    <script src="{% static 'website/js/bootstrap.js' %}"></script>
+    <script src="{% static 'website/js/bootstrap.bundle.js' %}"></script>
 </body>
-</html>

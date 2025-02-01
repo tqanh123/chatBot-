@@ -22,10 +22,12 @@
                     <div id="navbar" class="justify-content-between">
                         <h1 class="title">Medical Chat bot</h1>
                         <div style="line-height: 50px;">
-                          <button class="login">
-                            <i class="fa-solid fa-user"></i>
-                            login
-                          </button>
+                            <a href="{% url 'login' %}">
+                                <button class="login">
+                                    <i class="fa-solid fa-user"></i>
+                                    login
+                                </button>
+                            </a>
                         </div>
                     </div>
 
@@ -45,6 +47,58 @@
                                     <div class="ib_user">
                                         <div><p>{{ content.content }}</p></div>
                                     </div>
+                                <div class="edit-container">
+                                    <button class="edit-button" style="display: none; position: absolute; right: 0;">Edit</button>
+                                    <script>
+                                        document.querySelectorAll('.ib_user').forEach(function(userDiv) {
+                                            userDiv.addEventListener('mouseenter', function() {
+                                                userDiv.querySelector('.edit-button').style.display = 'block';
+                                            });
+                                            userDiv.addEventListener('mouseleave', function() {
+                                                userDiv.querySelector('.edit-button').style.display = 'none';
+                                            });
+                                        });
+
+                                        document.querySelectorAll('.edit-button').forEach(function(editButton) {
+                                            editButton.addEventListener('click', function() {
+                                                let contentDiv = this.parentElement.querySelector('p');
+                                                let originalContent = contentDiv.innerText;
+                                                let contentId = '{{ content.id }}';
+                                                let input = document.createElement('input');
+                                                input.type = 'text';
+                                                input.value = originalContent;
+                                                contentDiv.innerHTML = '';
+                                                contentDiv.appendChild(input);
+                                                input.focus();
+
+                                                input.addEventListener('blur', function() {
+                                                    let newContent = input.value;
+                                                    contentDiv.innerHTML = newContent;
+
+                                                    // Send the updated content to the server
+                                                    fetch('{% url "update_content" %}', {
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'Content-Type': 'application/json',
+                                                            'X-CSRFToken': '{{ csrf_token }}'
+                                                        },
+                                                        body: JSON.stringify({
+                                                            id: contentId,
+                                                            content: newContent
+                                                        })
+                                                    }).then(response => response.json())
+                                                      .then(data => {
+                                                          if (data.success) {
+                                                              console.log('Content updated successfully');
+                                                          } else {
+                                                              console.error('Failed to update content');
+                                                          }
+                                                      });
+                                                });
+                                            });
+                                        });
+                                    </script>
+                                </div>
                                 {% endif %}
                             {% endfor %}
                             <script>
@@ -88,10 +142,10 @@
             
             <div class="input-message w-100">
                 <input type="text" id="userInput" placeholder="type message here" onkeyup="sendQuery(event)">
-                <form action="" method="post" enctype="multipart/form-data">
+                <form id="uploadForm" action="{% url 'upload_file' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <input type="file" id="fileInput" style="display: none;">
-
+                    <input type="hidden" name="conId" id="conId" value="{{ conversation.id }}">
+                    <input type="file" id="fileInput" name="file" multiple style="display: none;">
                 </form>
                 <div class="fileUpload">
                     {% for file in files %}
@@ -104,6 +158,21 @@
                     {% endfor %}
                 </div>
                 <button id="link"><i class="fa-solid fa-xl fa-paperclip"></i></button>
+                <script>
+                    document.getElementById('link').addEventListener('click', function() {
+                        document.getElementById('fileInput').click();
+                    });
+
+                    document.getElementById('send').addEventListener('click', function() {
+                        document.getElementById('uploadForm').submit();
+                    });
+
+                    document.getElementById('userInput').addEventListener('keyup', function(event) {
+                        if (event.key === 'Enter') {
+                            document.getElementById('uploadForm').submit();
+                        }
+                    });
+                </script>
                 <button id="send"><i class="fa-solid fa-2xl fa-circle-arrow-right"></i></button>
             </div>
         </div>

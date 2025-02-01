@@ -15,16 +15,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Conversation',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateTimeField(auto_now=True)),
                 ('name', models.CharField(max_length=200)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Multiple',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('files', models.FileField(upload_to='')),
             ],
         ),
         migrations.CreateModel(
@@ -41,12 +34,21 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='QuestionAnswer',
+            name='Content',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('question', models.CharField(max_length=200)),
-                ('answer', models.CharField(max_length=200)),
-                ('con_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='website.conversation')),
+                ('id', models.BigAutoField(primary_key=True, serialize=False)),
+                ('actor', models.CharField(max_length=200)),
+                ('content', models.TextField()),
+                ('number', models.IntegerField()),
+                ('con', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='website.conversation')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Multiple',
+            fields=[
+                ('id', models.BigAutoField(primary_key=True, serialize=False)),
+                ('files', models.FileField(upload_to='')),
+                ('conversation', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='website.conversation')),
             ],
         ),
         migrations.AddField(

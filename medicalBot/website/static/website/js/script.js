@@ -63,45 +63,44 @@ const sendButton = document.getElementById('send');
 sendButton.addEventListener('click', sendQuery);
 
 // attach link button
-const linkButton = document.getElementById('link');
-const fileInput = document.getElementById('fileInput');
+// const linkButton = document.getElementById('link');
+// const fileInput = document.getElementById('fileInput');
 
-linkButton.addEventListener('click', () => {
-    fileInput.click();
-});
+// linkButton.addEventListener('click', () => {
+//     fileInput.click();
+// });
 
-fileInput.addEventListener('change', () => {
-    const file = fileInput.files[0];
-    if (file) {
-        console.log('File selected:', file.name);
+// fileInput.addEventListener('change', () => {
+//     const file = fileInput.files[0];
+//     if (file) {
+//         console.log('File selected:', file.name);
 
-        const formData = new FormData();
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        formData.append('file', file);
-        console.log('formData:', formData);
+//         const formData = new FormData(document.getElementById('uploadForm'));
+//         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+//         formData.append('file', file);
+//         console.log('formData:', formData);
 
-        fetch(`${conversationId}/upload`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken,
-            },
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                // Display the selected file in the chat area
-                // const fileMessage = document.createElement('div');
-                // fileMessage.className = 'file-message';
-                // fileMessage.innerHTML = `<p>File selected: ${file.name}</p>`;
-                // chatting.appendChild(fileMessage);
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    }
-});
+//         fetch(`${conversationId}/upload`, {
+//             method: 'POST',
+//             headers: {
+//                 'X-CSRFToken': csrfToken,
+//             },
+//             body: formData
+//         })
+//             .then(response => response.json())
+//             .then(data => {
+//                 console.log('Success:', data);
+//                 // Display the selected file in the chat area
+//                 const fileMessage = document.createElement('div');
+//                 fileMessage.className = 'file-message';
+//                 fileMessage.innerHTML = `<p>File selected: ${file.name}</p>`;
+//                 chatting.appendChild(fileMessage);
+//             })
+//             .catch((error) => {
+//                 console.error('Error:', error);
+//             });
+//     }
+// });
 
 // display message
 function addMessage(content, sender) {
@@ -150,7 +149,7 @@ async function sendQuery(event) {
         if (!userMessage) return;
         input.setAttribute('readonly', 'true');
 
-        await updateScript(userMessage, 'User', num);
+        // await updateScript(userMessage, 'User', num);
         addMessage(userMessage, 'User');
         input.value = '';
 
@@ -258,7 +257,7 @@ async function Question(num) {
         // console.log("questions: ", questions);
         // console.log('randomQuestion:', randomQuestion);
         // console.log('num:', Math.floor(Math.random() * (questions[num-4].content.length)));
-        await updateScript(randomQuestion, 'Bot', number);
+        // await updateScript(randomQuestion, 'Bot', number);
         addMessage(randomQuestion, 'Bot');
     } else if (num >= 8 && num < 12) {
         if (num === 8) {
@@ -278,7 +277,7 @@ async function Question(num) {
             }
         }
 
-        await updateScript(randomQuestion, 'Bot', number);
+        // await updateScript(randomQuestion, 'Bot', number);
         addMessage(randomQuestion, 'Bot');
     } else if (num >= 12 && num < 14) {
         if (num === 12) {
@@ -298,7 +297,7 @@ async function Question(num) {
             }
         }
         
-        await updateScript(randomQuestion, 'Bot', number);
+        // await updateScript(randomQuestion, 'Bot', number);
         addMessage(randomQuestion, 'Bot');
     } else if (num === 14) {
         await fetchQuestionsByTag(tag[++tagNum][0]).then(fetchedQuestions => {
@@ -316,7 +315,7 @@ async function Question(num) {
             }
         }
         
-        await updateScript(randomQuestion, 'Bot', number);
+        // await updateScript(randomQuestion, 'Bot', number);
         addMessage(randomQuestion, 'Bot');
     } else if (num >= 15 && num < 18) {
         if (num === 15) {
@@ -336,7 +335,7 @@ async function Question(num) {
             }
         }
         
-        await updateScript(randomQuestion, 'Bot', number);
+        // await updateScript(randomQuestion, 'Bot', number);
         addMessage(randomQuestion, 'Bot');
     } else if (num === 18) {
         await fetchQuestionsByTag(tag[++tagNum][0]).then(fetchedQuestions => {
@@ -354,7 +353,7 @@ async function Question(num) {
             }
         }
 
-        await updateScript(randomQuestion, 'Bot', number);
+        // await updateScript(randomQuestion, 'Bot', number);
         addMessage(randomQuestion, 'Bot');
     } else {
         addMessage('Cảm ơn bạn đã cung cấp thông tin', 'Bot');

@@ -1,5 +1,7 @@
 from django import forms
+from django.forms import ModelForm
+from .models import Multiple
 
-class upload(forms.Form):
-    name = forms.CharField(label='Name', max_length=100)
+class MultipleForm(forms.Form):
     file = forms.FileField()
+
